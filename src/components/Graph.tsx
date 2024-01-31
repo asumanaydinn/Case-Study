@@ -1,14 +1,14 @@
 import Trend from "./Trend";
 
 const Graph = () => {
-  const renderAdditionalInfo = () => {
+  const renderAdditionalInfo = (title: string, info: string) => {
     return (
       <div className="flex h-full w-full flex-col items-center justify-center gap-y-2">
         <div className="text-base font-semibold leading-snug tracking-tight text-gray-400">
-          Active Sessions
+          {title}
         </div>
         <div className="text-2xl font-bold tracking-tight text-gray-800">
-          449
+          {info}
         </div>
       </div>
     );
@@ -72,11 +72,11 @@ const Graph = () => {
       </div>
 
       <div className="flex h-full w-80 flex-col items-stretch justify-between divide-y">
-        {renderAdditionalInfo()}
-        {renderAdditionalInfo()}
-        {renderAdditionalInfo()}
-        {renderAdditionalInfo()}
-        {renderAdditionalInfo()}
+        {renderAdditionalInfo("Active Sessions", "449")}
+        {renderAdditionalInfo("Received", "426")}
+        {renderAdditionalInfo("Average Session Time", "33m")}
+        {renderAdditionalInfo("Bounce Rate", "47%")}
+        {renderAdditionalInfo("Events per User", "36.22")}
       </div>
     </div>
   );

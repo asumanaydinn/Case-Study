@@ -10,11 +10,12 @@ import React, { useState } from "react";
 type TableProps = {
   data: any[];
   columns: ColumnDef<any>[];
+  title: string;
 };
 
-export default function Table({ data, columns }: TableProps) {
+export default function Table({ data, columns, title }: TableProps) {
   const [pageIndex, setPageIndex] = useState(0);
-  const [pageSize, setPageSize] = useState(10); // You can set your own default page size
+  const [pageSize, setPageSize] = useState(5); // You can set your own default page size
 
   const table = useReactTable({
     data,
@@ -30,9 +31,12 @@ export default function Table({ data, columns }: TableProps) {
   });
 
   return (
-    <div>
-      <div className="flex items-center justify-between py-3">
-        <div className="flex flex-1 justify-between">
+    <>
+      <div className="flex items-center justify-between pl-8 pt-8">
+        <div className="text-gray-800 text-lg font-bold tracking-wide">
+          {title}
+        </div>
+        <div className="flex flex-1 justify-end px-8">
           <button
             onClick={() => setPageIndex((old) => Math.max(old - 1, 0))}
             disabled={!table.getCanPreviousPage()}
@@ -53,13 +57,13 @@ export default function Table({ data, columns }: TableProps) {
       </div>
       <div className="overflow-x-auto bg-white">
         <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+          <thead>
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+                    className="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500"
                   >
                     {flexRender(
                       header.column.columnDef.header,
@@ -72,7 +76,10 @@ export default function Table({ data, columns }: TableProps) {
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
             {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className="h-24">
+              <tr
+                key={row.id}
+                className="h-24 hover:bg-[#3751FF] hover:bg-opacity-5"
+              >
                 {row.getVisibleCells().map((cell) => (
                   <td
                     key={cell.id}
@@ -86,6 +93,6 @@ export default function Table({ data, columns }: TableProps) {
           </tbody>
         </table>
       </div>
-    </div>
+    </>
   );
 }
