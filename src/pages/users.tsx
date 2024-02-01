@@ -38,11 +38,8 @@ const Users = () => {
   const renderSegment = useCallback(
     ({ row: tableRow }: CellContext<User, string>) => {
       return (
-        <div className="w-20 h-6 relative">
-          <div className="w-20 h-6 left-0 top-0 absolute bg-emerald-400 rounded-full" />
-          <div className="w-12 h-3.5 left-[12px] top-[5px] absolute text-center text-white text-xs font-bold font-['Mulish'] uppercase tracking-wide">
-            {toTitleCase(tableRow.original.segment)}
-          </div>
+        <div className="w-20 h-6 bg-emerald-400 rounded-full flex items-center justify-center text-white">
+          {toTitleCase(tableRow.original.segment)}
         </div>
       );
     },

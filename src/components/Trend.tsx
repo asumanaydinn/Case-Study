@@ -1,17 +1,13 @@
 import fakeData from "@/lib/generateTrendData";
 import {
-  LineChart,
-  Line,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
   Area,
   AreaChart,
 } from "recharts";
-import { Props } from "recharts/types/container/Surface";
 
 const Trend = () => {
   return (

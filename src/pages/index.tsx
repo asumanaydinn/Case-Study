@@ -4,29 +4,12 @@ import { signIn } from "next-auth/react";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import { useAuthContext } from "@/context/AuthContext";
 
 export default function Home() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [seePassword, setSeePassword] = useState(false);
-
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-
-    // Perform the sign-in
-    const result = await signIn("credentials", {
-      redirect: false,
-      username,
-      password,
-    });
-
-    if (result?.error) {
-      alert(result.error);
-    } else {
-      // Redirect to the desired page after successful sign-in
-      window.location.href = "/overview";
-    }
-  };
+  const { login, password, setPassword, setUsername, username, error } =
+    useAuthContext();
 
   return (
     <div className="flex h-screen w-screen  items-center justify-center bg-[#363740]">
@@ -47,15 +30,13 @@ export default function Home() {
             </div>
           </div>
 
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col gap-y-6 w-full"
-          >
+          <form onSubmit={login} className="flex flex-col gap-y-6 w-full">
             <div className="flex flex-col gap-y-2">
               <div className="text-gray-400 text-xs font-bold tracking-tight">
                 email
               </div>
               <Input
+                error={error}
                 placeholder="Email Address"
                 type="text"
                 value={username}
@@ -93,6 +74,7 @@ export default function Home() {
                     )}
                   </div>
                 )}
+                error={error}
                 placeholder="Password"
                 type={seePassword ? "text" : "password"}
                 value={password}

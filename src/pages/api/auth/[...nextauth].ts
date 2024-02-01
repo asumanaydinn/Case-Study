@@ -1,5 +1,3 @@
-// pages/api/auth/[...nextauth].ts
-
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -24,13 +22,9 @@ export default NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        console.log(credentials);
-
         if (!credentials) return null;
 
         const user = users[credentials.username];
-
-        console.log(user);
 
         if (user && user.password === credentials.password) {
           return { id: user.id.toString(), name: user.name, email: user.email };
